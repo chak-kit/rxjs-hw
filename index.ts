@@ -9,10 +9,12 @@ import { map, filter, reduce } from 'rxjs/operators';
   const source$ = from(data);
 
  // TODO: Filter only from a-gA-G
+
   let regexp = /[a-gA-G]/g
   source$.pipe(filter(val => regexp.test(val))).subscribe(
     result => console.log(result)
   )
+  
 }
 
 // ******* exercise 2 *******
@@ -52,6 +54,7 @@ import { map, filter, reduce } from 'rxjs/operators';
 
   // TODO: Create an RxJS Observable `observable` with 
   // the same behavior as the promise above.
+
   let observable$;
   observable$ = new Observable((observer)=>{
     setTimeout(()=>{
@@ -60,8 +63,8 @@ import { map, filter, reduce } from 'rxjs/operators';
     },1000)
      console.log('started');
   })
-
   observable$.subscribe(x => console.log('next: ' + x));
+
 }
 
 // ******* exercise 4 *******
@@ -71,9 +74,9 @@ import { map, filter, reduce } from 'rxjs/operators';
   const widthEl = document.getElementById('width')
   let heightObservable = fromEvent(heightEl, 'input')
   let widthObservable = fromEvent(widthEl, 'input')
-  
-zip(heightObservable,widthObservable).pipe(
-  map(num => +(<any>num[0].target).value * (<any>num[1].target).value)
+
+  zip(heightObservable,widthObservable).pipe(
+    map(num => Number((<HTMLTextAreaElement>num[0].target).value) * Number((<HTMLTextAreaElement>num[1].target).value))
   ).subscribe(
     result => console.log(result)
   )
