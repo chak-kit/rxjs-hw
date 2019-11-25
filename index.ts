@@ -1,4 +1,4 @@
-import { of, from, fromEvent, Observable, zip } from 'rxjs'; 
+import { of, from, fromEvent, Observable, combineLatest } from 'rxjs'; 
 import { map, filter, reduce } from 'rxjs/operators';
 
 
@@ -75,7 +75,7 @@ import { map, filter, reduce } from 'rxjs/operators';
   let heightObservable = fromEvent(heightEl, 'input')
   let widthObservable = fromEvent(widthEl, 'input')
 
-  zip(heightObservable,widthObservable).pipe(
+  combineLatest(heightObservable,widthObservable).pipe(
     map(num => Number((<HTMLTextAreaElement>num[0].target).value) * Number((<HTMLTextAreaElement>num[1].target).value))
   ).subscribe(
     result => console.log(result)
